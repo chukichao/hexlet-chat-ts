@@ -1,54 +1,27 @@
-# React + TypeScript + Vite
+# [Hexlet Chat](https://hexlet-chat-suyy.onrender.com/)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Testing & Linting:
 
-Currently, two official plugins are available:
+[![project-check]([![project-check](https://github.com/chukichao/hexlet-chat-ts/actions/workflows/project-check.yml/badge.svg)](https://github.com/chukichao/hexlet-chat-ts/actions/workflows/project-check.yml))
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### CodeClimate:
 
-## Expanding the ESLint configuration
+[![Maintainability](https://qlty.sh/badges/16af772c-9a8d-4248-91ab-b10568fef9e9/maintainability.svg)](https://qlty.sh/gh/chukichao/projects/hexlet-chat-ts)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Аналог Slack-чата (упрощенная версия)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Приложение доступно по [ссылке](https://hexlet-chat-suyy.onrender.com/), либо через клонирование данного репозитория.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+![hexlet-chat](https://github.com/user-attachments/assets/0cbcc6ea-adf7-462c-918b-16ddc9537713)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+_Установка:_
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+1. _Клонируйте данный репозиторий._
+2. _Скачайте необходимые зависимости (запустить команду make install в корневой директории проекта)._
+3. _Соберите проект с помощью команды make build._
+4. _Запустите локальный сервер командой make start._
+
+### Доступ к чату доступен только авторизованным пользователям. Для входа можно прописать `admin` во все поля формы, либо ввести _фейковые_ данные и зарегистрировать нового пользователя.
+### Функциональность чата позволяет общаться с разными пользователями в режиме реального времени, а также создавать новые каналы и управлять ими.
+
+### Приятного общения!

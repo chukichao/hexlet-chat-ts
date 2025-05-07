@@ -27,6 +27,6 @@
     "lint-staged": "^15.5.2"
   },
   "lint-staged": {
-    "frontend/src/**/*.{ts,tsx}": "eslint"
+    "frontend/src/**/*.{ts,tsx}": "make lint"
   }
 }

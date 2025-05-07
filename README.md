@@ -1,16 +1,15 @@
-# [Hexlet Chat](https://hexlet-chat-suyy.onrender.com/)
+# [Hexlet Chat (TS)](https://hexlet-chat-suyy.onrender.com/)
 
-### Testing & Linting:
+### Linting & CodeClimate:
 
-[![project-check]([![project-check](https://github.com/chukichao/hexlet-chat-ts/actions/workflows/project-check.yml/badge.svg)](https://github.com/chukichao/hexlet-chat-ts/actions/workflows/project-check.yml))
-
-### CodeClimate:
-
+[![project-check](https://github.com/chukichao/hexlet-chat-ts/actions/workflows/project-check.yml/badge.svg)](https://github.com/chukichao/hexlet-chat-ts/actions/workflows/project-check.yml)
 [![Maintainability](https://qlty.sh/badges/16af772c-9a8d-4248-91ab-b10568fef9e9/maintainability.svg)](https://qlty.sh/gh/chukichao/projects/hexlet-chat-ts)
 
 ### Аналог Slack-чата (упрощенная версия)
 
-Приложение доступно по [ссылке](https://hexlet-chat-suyy.onrender.com/), либо через клонирование данного репозитория.
+Приложение доступно по [ссылке](https://hexlet-chat-suyy.onrender.com/)*, либо через клонирование данного репозитория.
+
+*может потребоваться 10-15 секунд для запуска сборки (render.com)
 
 ![hexlet-chat](https://github.com/user-attachments/assets/0cbcc6ea-adf7-462c-918b-16ddc9537713)
 

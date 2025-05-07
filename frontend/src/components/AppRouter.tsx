@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { getToken } from '../store/selectors';
@@ -11,12 +10,14 @@ import SignupPage from '../pages/SignupPage.jsx';
 
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 
+import { useAppSelector } from '../hooks/useAppSelector.js';
+
 import Chat from './Chat.jsx';
 
 import routes from '../routes';
 
-const AppRouter = () => {
-  const token = useSelector(getToken);
+const AppRouter: React.FC = () => {
+  const token = useAppSelector(getToken);
   const privateRoutes = token ? (
     <Route index element={<Chat />} />
   ) : (

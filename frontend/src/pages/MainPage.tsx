@@ -1,7 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-
 import { useTranslation } from 'react-i18next';
 
 import { ToastContainer, Bounce } from 'react-toastify';
@@ -15,18 +12,30 @@ import ModalRenameChannel from '../components/ModalRenameChannel.jsx';
 
 import { getModal } from '../store/selectors';
 
-const MainPage = () => {
+import { useAppSelector } from '../hooks/useAppSelector.js';
+
+import type { JSX } from 'react';
+
+const MainPage: React.FC = () => {
   const { t } = useTranslation();
 
-  const modal = useSelector(getModal);
+  const modal = useAppSelector(getModal);
 
-  const titleModal = {
+  interface ITitleModal {
+    [title: string]: string;
+  }
+
+  const titleModal: ITitleModal = {
     addChannel: t('modals.add'),
     removeChannel: t('modals.remove'),
     renameChannel: t('modals.rename'),
   };
 
-  const bodyModal = {
+  interface IBodyModal {
+    [title: string]: JSX.Element;
+  }
+
+  const bodyModal: IBodyModal = {
     addChannel: <ModalAddChannel />,
     removeChannel: <ModalRemoveChannel />,
     renameChannel: <ModalRenameChannel />,
@@ -37,7 +46,7 @@ const MainPage = () => {
       <div className="d-flex flex-column h-100">
         <Header />
         <Outlet />
-        {modal.isOpened && (
+        {modal.isOpened && modal.type !== null && (
           <ModalUI title={titleModal[modal.type]}>
             {bodyModal[modal.type]}
           </ModalUI>

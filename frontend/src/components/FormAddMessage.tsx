@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -15,25 +14,30 @@ import useChannel from '../hooks/useChannel.js';
 import { addMessage } from '../store/asyncActions';
 import { getToken, getUsername } from '../store/selectors';
 
-const FormAddMessage = () => {
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
+import { useAppSelector } from '../hooks/useAppSelector.js';
+
+const FormAddMessage: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [message, setMessage] = useState('');
   const [disabledButton, setDisabledButton] = useState(true);
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const currentUsername = useSelector(getUsername);
+  const currentUsername = useAppSelector(getUsername);
   const currentChannel = useChannel();
 
-  const token = useSelector(getToken);
+  const token = useAppSelector(getToken);
 
   useEffect(() => {
-    inputRef.current.focus();
+    if (inputRef.current) inputRef.current.focus();
   }, [currentChannel]);
 
-  const handleChange = ({ target: { value } }) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = ({
+    target: { value },
+  }) => {
     setMessage(value);
 
     if (value.trim().length > 0) {
@@ -43,22 +47,27 @@ const FormAddMessage = () => {
     }
   };
 
-  const handleSubmitMessage = (event) => {
+  const handleSubmitMessage: React.FormEventHandler<HTMLFormElement> = (
+    event,
+  ) => {
     event.preventDefault();
     setDisabledButton(true);
 
     const filteredMessage = filter.clean(message);
 
-    const newMessage = {
-      body: filteredMessage,
-      channelId: currentChannel.id,
-      username: currentUsername,
-    };
+    if (token && currentUsername) {
+      const newMessage = {
+        body: filteredMessage,
+        channelId: currentChannel.id,
+        username: currentUsername,
+      };
 
-    dispatch(addMessage({ token, newMessage }));
+      dispatch(addMessage({ token, newMessage }));
+    }
 
     setMessage('');
-    inputRef.current.focus();
+
+    if (inputRef.current) inputRef.current.focus();
   };
 
   return (

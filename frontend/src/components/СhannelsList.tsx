@@ -1,4 +1,3 @@
-import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { PlusSquare } from 'react-bootstrap-icons';
@@ -6,13 +5,16 @@ import { PlusSquare } from 'react-bootstrap-icons';
 import { getChannels } from '../store/selectors';
 import { uiActions } from '../store/actions';
 
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
+import { useAppSelector } from '../hooks/useAppSelector.js';
+
 import ChannelItem from './ChannelItem.jsx';
 
-const СhannelsList = () => {
+const ChannelsList: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const channels = Object.values(useSelector(getChannels));
+  const channels = Object.values(useAppSelector(getChannels));
 
   const handleAddChannel = () => {
     dispatch(uiActions.openModal({ type: 'addChannel' }));
@@ -45,4 +47,4 @@ const СhannelsList = () => {
   );
 };
 
-export default СhannelsList;
+export default ChannelsList;

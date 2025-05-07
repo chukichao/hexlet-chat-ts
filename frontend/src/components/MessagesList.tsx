@@ -1,17 +1,19 @@
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { getMessages } from '../store/selectors';
 
-import useChannel from '../hooks/useChannel';
+import useChannel from '../hooks/useChannel.js';
+import { useAppSelector } from '../hooks/useAppSelector.js';
 
 import FormAddMessage from './FormAddMessage.jsx';
 
-const MessagesList = () => {
+const MessagesList: React.FC = () => {
   const { t } = useTranslation();
 
   const currentChannel = useChannel();
-  const messagesChannel = Object.values(useSelector(getMessages)).filter(
+
+  const messages = Object.values(useAppSelector(getMessages));
+  const messagesChannel = messages.filter(
     (message) => message.channelId === currentChannel?.id,
   );
 

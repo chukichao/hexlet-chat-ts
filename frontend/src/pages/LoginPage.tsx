@@ -1,12 +1,14 @@
-import { useState, useRef, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { AxiosError } from 'axios';
 
 import { useTranslation } from 'react-i18next';
 
 import { toast } from 'react-toastify';
 
 import { Formik, Form as FormFormik, Field } from 'formik';
+import type { FormikHelpers } from 'formik';
 
 import Card from 'react-bootstrap/Card';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
@@ -15,27 +17,31 @@ import Button from 'react-bootstrap/Button';
 import UserService from '../API/UserService.js';
 import { authActions } from '../store/actions';
 
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
+
 import loginImg from '../assets/login.jpg';
 
 import routes from '../routes';
 
-const Login = () => {
+const Login: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const getNotificationConnectionError = () => toast.error(t('errors.network'));
 
   const [disabledButton, setDisabledButton] = useState(false);
 
-  const [networkError, setNetworkError] = useState(null);
-  const [authError, setAuthError] = useState(null);
+  const [networkError, setNetworkError] = useState<null | Error>(null);
+  const [authError, setAuthError] = useState<null | Error>(null);
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current.focus();
-    inputRef.current.select();
+    if (inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
   });
 
   useEffect(() => {
@@ -45,7 +51,15 @@ const Login = () => {
     /* eslint-disable-next-line react-hooks/exhaustive-deps */
   }, [networkError, t]);
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  interface Values {
+    username: string;
+    password: string;
+  }
+
+  const handleSubmit = async (
+    values: Values,
+    { setSubmitting }: FormikHelpers<Values>,
+  ) => {
     try {
       setDisabledButton(true);
 
@@ -60,15 +74,17 @@ const Login = () => {
 
       navigate('/');
     } catch (error) {
-      console.error(error);
+      if (error instanceof AxiosError) {
+        console.error(error);
 
-      if (error.message === 'Network Error') {
-        setNetworkError(error);
-        return;
-      }
+        if (error.message === 'Network Error') {
+          setNetworkError(error);
+          return;
+        }
 
-      if (error?.response.data.statusCode === 401) {
-        setAuthError(error);
+        if (error.response?.data.statusCode === 401) {
+          setAuthError(error);
+        }
       }
     } finally {
       setSubmitting(false);

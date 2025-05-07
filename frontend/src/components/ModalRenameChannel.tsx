@@ -1,7 +1,4 @@
-/* eslint-disable consistent-return */
-
 import { useState, useRef, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
@@ -12,6 +9,7 @@ import { setLocale } from 'yup';
 import { toast } from 'react-toastify';
 
 import { Formik, Form as FormFormik, Field } from 'formik';
+import type { FormikErrors } from 'formik';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -21,24 +19,30 @@ import { getChannels, getToken, getModal } from '../store/selectors';
 import { uiActions } from '../store/actions';
 import { editChannel } from '../store/asyncActions';
 
-const ModalRenameChannel = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
+import { useAppSelector } from '../hooks/useAppSelector.js';
 
-  const getNotificationStatusOperation = () => toast.success(t('channels.renamed'));
+const ModalRenameChannel: React.FC = () => {
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const getNotificationStatusOperation = () =>
+    toast.success(t('channels.renamed'));
 
   const [disabledButton, setDisabledButton] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const token = useSelector(getToken);
-  const channelNames = Object.values(useSelector(getChannels)).map(
+  const token = useAppSelector(getToken);
+  const channelNames = Object.values(useAppSelector(getChannels)).map(
     (channel) => channel.name,
   );
 
-  const channelId = useSelector(getModal).extra;
-  const currentChannelName = useSelector(getChannels)[channelId].name;
+  const channelId = useAppSelector(getModal).extra;
+  const channels = useAppSelector(getChannels);
+
+  const currentChannelName = channelId && channels[channelId].name;
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -57,39 +61,52 @@ const ModalRenameChannel = () => {
   });
 
   const validationSchema = yup.object().shape({
-    name: yup.string().required().min(3).max(20)
-      .notOneOf(channelNames),
+    name: yup.string().required().min(3).max(20).notOneOf(channelNames),
   });
 
   const handleCloseModal = () => {
     dispatch(uiActions.closeModal());
   };
 
-  const handleSubmit = (errors, values) => (event) => {
-    event.preventDefault();
+  interface Values {
+    name: string | null;
+  }
 
-    if (errors.name) {
-      setErrorMessage(errors.name);
-      return;
-    }
+  const handleSubmit =
+    (
+      errors: FormikErrors<Values>,
+      values: Values,
+    ): React.FormEventHandler<HTMLFormElement> =>
+    (event) => {
+      event.preventDefault();
 
-    setDisabledButton(true);
+      if (errors.name) {
+        setErrorMessage(errors.name);
+        return;
+      }
 
-    const filteredChannelName = filter.clean(values.name);
-    const editedChannel = {
-      name: filteredChannelName,
+      setDisabledButton(true);
+
+      if (values.name) {
+        const filteredChannelName = filter.clean(values.name);
+        const editedChannel = {
+          name: filteredChannelName,
+        };
+
+        if (token && channelId) {
+          dispatch(editChannel({ token, channelId, editedChannel }));
+        }
+      }
+
+      handleCloseModal();
+      getNotificationStatusOperation();
     };
-
-    dispatch(editChannel({ token, channelId, editedChannel }));
-
-    handleCloseModal();
-    getNotificationStatusOperation();
-  };
 
   return (
     <Formik
       initialValues={{ name: currentChannelName }}
       validationSchema={validationSchema}
+      onSubmit={() => {}}
     >
       {({ errors, values }) => (
         <FormFormik onSubmit={handleSubmit(errors, values)} noValidate>
@@ -100,7 +117,7 @@ const ModalRenameChannel = () => {
               className={`form-control mb-2 ${
                 errorMessage ? 'is-invalid' : ''
               }`}
-              onKeyDown={(event) => {
+              onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
                 if (event.key === 'Enter') {
                   return handleSubmit(errors, values);
                 }

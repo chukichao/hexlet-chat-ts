@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
@@ -10,15 +9,18 @@ import Button from 'react-bootstrap/esm/Button.js';
 import { getToken } from '../store/selectors';
 import { authActions } from '../store/actions';
 
-const Header = () => {
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
+import { useAppSelector } from '../hooks/useAppSelector.js';
+
+const Header: React.FC = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogout = () => {
     dispatch(authActions.removeAuth());
   };
 
-  const token = useSelector(getToken);
+  const token = useAppSelector(getToken);
   const logoutButton = token ? (
     <Button onClick={handleLogout}>{t('logout')}</Button>
   ) : null;

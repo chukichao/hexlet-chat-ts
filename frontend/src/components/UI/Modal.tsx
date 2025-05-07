@@ -1,14 +1,20 @@
-import { useSelector, useDispatch } from 'react-redux';
-
 import Modal from 'react-bootstrap/Modal';
 
 import { getModal } from '../../store/selectors';
 import { uiActions } from '../../store/actions';
 
-const ModalUI = ({ title, children }) => {
-  const dispatch = useDispatch();
+import { useAppDispatch } from '../../hooks/useAppDispatch.js';
+import { useAppSelector } from '../../hooks/useAppSelector.js';
 
-  const isModalOpen = useSelector(getModal).isOpened;
+interface ModalUIProps {
+  title: string;
+  children: React.ReactNode;
+}
+
+const ModalUI: React.FC<ModalUIProps> = ({ title, children }) => {
+  const dispatch = useAppDispatch();
+
+  const isModalOpen = useAppSelector(getModal).isOpened;
 
   const handleCloseModal = () => {
     dispatch(uiActions.closeModal());

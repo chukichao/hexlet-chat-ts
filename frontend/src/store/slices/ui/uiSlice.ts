@@ -1,11 +1,21 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice } from '@reduxjs/toolkit';
 import { addChannel, removeChannel } from '../../asyncActions';
 
 const defaultChannelId = '1';
 
-const initialState = {
+type Modal = {
+  isOpened: boolean;
+  type: null | string;
+  extra: null | string;
+};
+
+interface IUIState {
+  modal: Modal;
+  defaultChannelId: string;
+  currentChannelId: string;
+}
+
+const initialState: IUIState = {
   modal: {
     isOpened: false,
     type: null,

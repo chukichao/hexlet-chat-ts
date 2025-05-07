@@ -1,13 +1,19 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable consistent-return */
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import MessagesService from '../../../API/MessagesService.js';
 import normalizeData from '../../../utils/normalizeData.js';
 
+import type { IAddMessage, IMessage } from '../../../types/message.js';
+
+import type { INormalizeState } from '../../../types/normalizeState.js';
+
+const initialState: INormalizeState<IMessage> = {
+  entities: {},
+  ids: [],
+};
+
 export const getMessages = createAsyncThunk(
   'messages/getMessages',
-  async (token) => {
+  async (token: string) => {
     try {
       const response = await MessagesService.getMessages(token);
 
@@ -20,9 +26,9 @@ export const getMessages = createAsyncThunk(
 
 export const addMessage = createAsyncThunk(
   'messages/addMessage',
-  async ({ token, newMessage }) => {
+  async (data: IAddMessage) => {
     try {
-      const response = await MessagesService.addMessage(token, newMessage);
+      const response = await MessagesService.addMessage(data);
 
       return response.data;
     } catch (error) {
@@ -31,19 +37,17 @@ export const addMessage = createAsyncThunk(
   },
 );
 
-const initialState = {
-  entities: {},
-  ids: [],
-};
-
 const messagesSlice = createSlice({
   name: 'messages',
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getMessages.fulfilled, (state, action) => {
-      const { entities, ids } = action.payload;
-      state.entities = entities;
-      state.ids = ids;
+      if (action.payload) {
+        const { entities, ids } = action.payload;
+        state.entities = entities;
+        state.ids = ids;
+      }
     });
   },
 });

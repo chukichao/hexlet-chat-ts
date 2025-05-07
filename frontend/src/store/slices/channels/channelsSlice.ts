@@ -1,13 +1,24 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable consistent-return */
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import ChannelsService from '../../../API/ChannelsService.js';
 import normalizeData from '../../../utils/normalizeData.js';
 
+import type {
+  IChannel,
+  IAddChannel,
+  IRemoveChannel,
+  IEditChannel,
+} from '../../../types/channel.js';
+
+import type { INormalizeState } from '../../../types/normalizeState.js';
+
+const initialState: INormalizeState<IChannel> = {
+  entities: {},
+  ids: [],
+};
+
 export const getChannels = createAsyncThunk(
   'channels/getChannels',
-  async (token) => {
+  async (token: string) => {
     try {
       const response = await ChannelsService.getChannels(token);
 
@@ -20,9 +31,9 @@ export const getChannels = createAsyncThunk(
 
 export const addChannel = createAsyncThunk(
   'channels/addChannel',
-  async ({ token, newChannel }) => {
+  async (data: IAddChannel) => {
     try {
-      const response = await ChannelsService.addChannel(token, newChannel);
+      const response = await ChannelsService.addChannel(data);
 
       return response.data;
     } catch (error) {
@@ -33,9 +44,9 @@ export const addChannel = createAsyncThunk(
 
 export const removeChannel = createAsyncThunk(
   'channels/removeChannel',
-  async ({ token, channelId }) => {
+  async (data: IRemoveChannel) => {
     try {
-      const response = await ChannelsService.removeChannel(token, channelId);
+      const response = await ChannelsService.removeChannel(data);
 
       return response.data;
     } catch (error) {
@@ -46,13 +57,9 @@ export const removeChannel = createAsyncThunk(
 
 export const editChannel = createAsyncThunk(
   'channels/editChannel',
-  async ({ token, channelId, editedChannel }) => {
+  async (data: IEditChannel) => {
     try {
-      const response = await ChannelsService.editChannel(
-        token,
-        channelId,
-        editedChannel,
-      );
+      const response = await ChannelsService.editChannel(data);
 
       return response.data;
     } catch (error) {
@@ -61,19 +68,17 @@ export const editChannel = createAsyncThunk(
   },
 );
 
-const initialState = {
-  entities: {},
-  ids: [],
-};
-
 const channelsSlice = createSlice({
   name: 'channels',
   initialState,
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getChannels.fulfilled, (state, action) => {
-      const { entities, ids } = action.payload;
-      state.entities = entities;
-      state.ids = ids;
+      if (action.payload) {
+        const { entities, ids } = action.payload;
+        state.entities = entities;
+        state.ids = ids;
+      }
     });
   },
 });

@@ -1,5 +1,3 @@
-import { useDispatch } from 'react-redux';
-
 import { useTranslation } from 'react-i18next';
 
 import Button from 'react-bootstrap/Button';
@@ -8,24 +6,31 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import { uiActions } from '../store/actions';
 
-import useChannel from '../hooks/useChannel';
+import useChannel from '../hooks/useChannel.js';
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
 
-const ChannelItem = ({ channel }) => {
-  const dispatch = useDispatch();
+import type { IChannel } from '../types/channel.js';
+
+interface ChannelItemProps {
+  channel: IChannel;
+}
+
+const ChannelItem: React.FC<ChannelItemProps> = ({ channel }) => {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   const currentChannel = useChannel();
   const active = currentChannel?.id === channel.id;
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: string) => {
     dispatch(uiActions.openModal({ type: 'removeChannel', extra: id }));
   };
 
-  const handleRename = (id) => {
+  const handleRename = (id: string) => {
     dispatch(uiActions.openModal({ type: 'renameChannel', extra: id }));
   };
 
-  const handleSwitchChannel = (id) => {
+  const handleSwitchChannel = (id: string) => {
     dispatch(uiActions.setCurrentChannel({ id }));
   };
 

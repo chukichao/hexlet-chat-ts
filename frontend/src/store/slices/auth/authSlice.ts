@@ -1,8 +1,12 @@
-/* eslint-disable no-param-reassign */
-
 import { createSlice } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+interface IAuthState {
+  username: string | null;
+  token: string | null;
+}
+
+const initialState: IAuthState = {
   username: null,
   token: null,
 };
@@ -11,7 +15,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuth(state, action) {
+    setAuth(state, action: PayloadAction<IAuthState>) {
       const { token, username } = action.payload;
       state.token = token;
       state.username = username;

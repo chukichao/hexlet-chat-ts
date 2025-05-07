@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux';
 import { getChannels, getCurrentChannelId } from '../store/selectors';
+import { useAppSelector } from './useAppSelector';
 
 const useChannel = () => {
-  const currentChannelId = useSelector(getCurrentChannelId);
-  const channels = useSelector(getChannels);
+  const currentChannelId = useAppSelector(getCurrentChannelId);
+  const channels = useAppSelector(getChannels);
 
   const currentChannel = channels[currentChannelId];
 

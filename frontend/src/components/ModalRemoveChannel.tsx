@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 
 import { useTranslation } from 'react-i18next';
 
@@ -12,16 +11,20 @@ import { getModal, getToken } from '../store/selectors';
 import { uiActions } from '../store/actions';
 import { removeChannel } from '../store/asyncActions';
 
-const ModalRemoveChannel = () => {
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
+import { useAppDispatch } from '../hooks/useAppDispatch.js';
+import { useAppSelector } from '../hooks/useAppSelector.js';
 
-  const getNotificationStatusOperation = () => toast.success(t('channels.removed'));
+const ModalRemoveChannel: React.FC = () => {
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+
+  const getNotificationStatusOperation = () =>
+    toast.success(t('channels.removed'));
 
   const [disabledButton, setDisabledButton] = useState(false);
 
-  const token = useSelector(getToken);
-  const channelId = useSelector(getModal).extra;
+  const token = useAppSelector(getToken);
+  const channelId = useAppSelector(getModal).extra;
 
   const handleCloseModal = () => {
     dispatch(uiActions.closeModal());
@@ -30,7 +33,9 @@ const ModalRemoveChannel = () => {
   const handleSubmit = () => {
     setDisabledButton(true);
 
-    dispatch(removeChannel({ token, channelId }));
+    if (token && channelId) {
+      dispatch(removeChannel({ token, channelId }));
+    }
 
     handleCloseModal();
     getNotificationStatusOperation();

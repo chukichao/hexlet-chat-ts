@@ -1,4 +1,4 @@
-# [Hexlet Chat (TS)](https://hexlet-chat-suyy.onrender.com/)
+# [Hexlet Chat (TS)](https://hexlet-chat-ts.onrender.com)
 
 ### Linting & CodeClimate:
 
@@ -7,7 +7,7 @@
 
 ### Аналог Slack-чата (упрощенная версия)
 
-Приложение доступно по [ссылке](https://hexlet-chat-suyy.onrender.com/)*, либо через клонирование данного репозитория.
+Приложение доступно по [ссылке](https://hexlet-chat-ts.onrender.com)*, либо через клонирование данного репозитория.
 
 *может потребоваться 10-15 секунд для запуска сборки (render.com)
 

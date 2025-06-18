@@ -1,15 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import ChannelsService from '../../../API/ChannelsService.js';
-import normalizeData from '../../../utils/normalizeData.js';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import ChannelsService from "../../../API/ChannelsService.js";
+import normalizeData from "../../../utils/normalizeData.js";
 
 import type {
   IChannel,
   IAddChannel,
   IRemoveChannel,
   IEditChannel,
-} from '../../../types/channel.js';
+} from "../../../types/channel.js";
 
-import type { INormalizeState } from '../../../types/normalizeState.js';
+import type { INormalizeState } from "../../../types/normalizeState.js";
 
 const initialState: INormalizeState<IChannel> = {
   entities: {},
@@ -17,7 +17,7 @@ const initialState: INormalizeState<IChannel> = {
 };
 
 export const getChannels = createAsyncThunk(
-  'channels/getChannels',
+  "channels/getChannels",
   async (token: string) => {
     try {
       const response = await ChannelsService.getChannels(token);
@@ -30,7 +30,7 @@ export const getChannels = createAsyncThunk(
 );
 
 export const addChannel = createAsyncThunk(
-  'channels/addChannel',
+  "channels/addChannel",
   async (data: IAddChannel) => {
     try {
       const response = await ChannelsService.addChannel(data);
@@ -43,7 +43,7 @@ export const addChannel = createAsyncThunk(
 );
 
 export const removeChannel = createAsyncThunk(
-  'channels/removeChannel',
+  "channels/removeChannel",
   async (data: IRemoveChannel) => {
     try {
       const response = await ChannelsService.removeChannel(data);
@@ -56,7 +56,7 @@ export const removeChannel = createAsyncThunk(
 );
 
 export const editChannel = createAsyncThunk(
-  'channels/editChannel',
+  "channels/editChannel",
   async (data: IEditChannel) => {
     try {
       const response = await ChannelsService.editChannel(data);
@@ -69,7 +69,7 @@ export const editChannel = createAsyncThunk(
 );
 
 const channelsSlice = createSlice({
-  name: 'channels',
+  name: "channels",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

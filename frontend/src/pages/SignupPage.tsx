@@ -1,36 +1,36 @@
-import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { AxiosError } from 'axios';
+import { AxiosError } from "axios";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import * as yup from 'yup';
-import { setLocale } from 'yup';
+import * as yup from "yup";
+import { setLocale } from "yup";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-import { Formik, Form as FormFormik, Field } from 'formik';
-import type { FormikHelpers } from 'formik';
+import { Formik, Form as FormFormik, Field } from "formik";
+import type { FormikHelpers } from "formik";
 
-import Card from 'react-bootstrap/Card';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Card from "react-bootstrap/Card";
+import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
-import UserService from '../API/UserService.js';
-import { authActions } from '../store/actions';
+import UserService from "../API/UserService.js";
+import { authActions } from "../store/actions";
 
-import { useAppDispatch } from '../hooks/useAppDispatch.js';
+import { useAppDispatch } from "../hooks/useAppDispatch.js";
 
-import signUpImg from '../assets/signUp.jpg';
+import signUpImg from "../assets/signUp.jpg";
 
 const SignupPage: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const getNotificationConnectionError = () => toast.error(t('errors.network'));
+  const getNotificationConnectionError = () => toast.error(t("errors.network"));
 
   const [disabledButton, setDisabledButton] = useState(false);
 
@@ -57,21 +57,21 @@ const SignupPage: React.FC = () => {
 
   setLocale({
     string: {
-      min: t('signup.usernameConstraints'),
-      max: t('signup.usernameConstraints'),
+      min: t("signup.usernameConstraints"),
+      max: t("signup.usernameConstraints"),
     },
     mixed: {
-      required: t('signup.required'),
+      required: t("signup.required"),
     },
   });
 
   const validationSchema = yup.object().shape({
     username: yup.string().required().min(3).max(20),
-    password: yup.string().required().min(6, t('signup.passMin')),
+    password: yup.string().required().min(6, t("signup.passMin")),
     confirmPassword: yup
       .string()
       .required()
-      .test('match', (value, ctx) => {
+      .test("match", (value, ctx) => {
         if (ctx.from) {
           return value === ctx.from[ctx.from.length - 1].value.password;
         }
@@ -100,12 +100,12 @@ const SignupPage: React.FC = () => {
       const response = await UserService.createNewUser(user);
       dispatch(authActions.setAuth(response.data));
 
-      navigate('/');
+      navigate("/");
     } catch (error) {
       if (error instanceof AxiosError) {
         console.error(error);
 
-        if (error.message === 'Network Error') {
+        if (error.message === "Network Error") {
           setNetworkError(error);
           return;
         }
@@ -122,13 +122,13 @@ const SignupPage: React.FC = () => {
 
   const errorConfirmPasswordFeedback = (
     <Form.Control.Feedback type="invalid" tooltip>
-      {t('signup.mustMatch')}
+      {t("signup.mustMatch")}
     </Form.Control.Feedback>
   );
 
   const errorAuthFeedback = (
     <Form.Control.Feedback type="invalid" tooltip>
-      {t('signup.alreadyExists')}
+      {t("signup.alreadyExists")}
     </Form.Control.Feedback>
   );
 
@@ -139,34 +139,34 @@ const SignupPage: React.FC = () => {
           <img
             src={signUpImg}
             className="rounded-circle"
-            alt={t('signup.header')}
+            alt={t("signup.header")}
           />
         </div>
         <Formik
-          initialValues={{ username: '', password: '', confirmPassword: '' }}
+          initialValues={{ username: "", password: "", confirmPassword: "" }}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           {({ errors, touched }) => (
             <FormFormik className="w-50" noValidate>
-              <h1 className="text-center mb-4">{t('signup.header')}</h1>
+              <h1 className="text-center mb-4">{t("signup.header")}</h1>
 
               <FloatingLabel
                 className="mb-3"
                 controlId="username"
-                label={t('signup.username')}
+                label={t("signup.username")}
               >
                 <Field
                   name="username"
                   autoComplete="username"
                   required
                   id="username"
-                  placeholder={t('signup.usernameConstraints')}
+                  placeholder={t("signup.usernameConstraints")}
                   innerRef={inputRef}
                   className={`form-control ${
                     (touched.username && errors.username) || invalidField
-                      ? 'is-invalid'
-                      : ''
+                      ? "is-invalid"
+                      : ""
                   }`}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
@@ -177,7 +177,7 @@ const SignupPage: React.FC = () => {
               <FloatingLabel
                 className="mb-3"
                 controlId="password"
-                label={t('signup.password')}
+                label={t("signup.password")}
               >
                 <Field
                   type="password"
@@ -186,11 +186,11 @@ const SignupPage: React.FC = () => {
                   autoComplete="new-password"
                   required
                   id="password"
-                  placeholder={t('signup.passMin')}
+                  placeholder={t("signup.passMin")}
                   className={`form-control ${
                     (touched.password && errors.password) || invalidField
-                      ? 'is-invalid'
-                      : ''
+                      ? "is-invalid"
+                      : ""
                   }`}
                 />
                 <Form.Control.Feedback type="invalid" tooltip>
@@ -201,7 +201,7 @@ const SignupPage: React.FC = () => {
               <FloatingLabel
                 className="mb-4"
                 controlId="confirmPassword"
-                label={t('signup.confirm')}
+                label={t("signup.confirm")}
               >
                 <Field
                   type="password"
@@ -209,12 +209,12 @@ const SignupPage: React.FC = () => {
                   autoComplete="new-password"
                   required
                   id="confirmPassword"
-                  placeholder={t('signup.mustMatch')}
+                  placeholder={t("signup.mustMatch")}
                   className={`form-control ${
                     (touched.confirmPassword && errors.confirmPassword) ||
                     invalidField
-                      ? 'is-invalid'
-                      : ''
+                      ? "is-invalid"
+                      : ""
                   }`}
                 />
 
@@ -229,7 +229,7 @@ const SignupPage: React.FC = () => {
                 className="w-100"
                 disabled={disabledButton}
               >
-                {t('signup.submit')}
+                {t("signup.submit")}
               </Button>
             </FormFormik>
           )}

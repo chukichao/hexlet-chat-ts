@@ -1,27 +1,27 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
-import { useTranslation } from 'react-i18next';
-import filter from 'leo-profanity';
+import { useTranslation } from "react-i18next";
+import filter from "leo-profanity";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import InputGroup from "react-bootstrap/InputGroup";
 
-import { ArrowRightSquare } from 'react-bootstrap-icons';
+import { ArrowRightSquare } from "react-bootstrap-icons";
 
-import useChannel from '../hooks/useChannel.js';
+import useChannel from "../hooks/useChannel.js";
 
-import { addMessage } from '../store/asyncActions';
-import { getToken, getUsername } from '../store/selectors';
+import { addMessage } from "../store/asyncActions";
+import { getToken, getUsername } from "../store/selectors";
 
-import { useAppDispatch } from '../hooks/useAppDispatch.js';
-import { useAppSelector } from '../hooks/useAppSelector.js';
+import { useAppDispatch } from "../hooks/useAppDispatch.js";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
 const FormAddMessage: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [disabledButton, setDisabledButton] = useState(true);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -65,7 +65,7 @@ const FormAddMessage: React.FC = () => {
       dispatch(addMessage({ token, newMessage }));
     }
 
-    setMessage('');
+    setMessage("");
 
     if (inputRef.current) inputRef.current.focus();
   };
@@ -79,8 +79,8 @@ const FormAddMessage: React.FC = () => {
       <InputGroup hasValidation>
         <Form.Control
           name="body"
-          aria-label={t('chat.newMessage')}
-          placeholder={t('chat.message')}
+          aria-label={t("chat.newMessage")}
+          placeholder={t("chat.message")}
           className="border-0 p-0 ps-2"
           value={message}
           onChange={handleChange}
@@ -93,7 +93,7 @@ const FormAddMessage: React.FC = () => {
           variant=""
         >
           <ArrowRightSquare />
-          <span className="visually-hidden">{t('chat.send')}</span>
+          <span className="visually-hidden">{t("chat.send")}</span>
         </Button>
       </InputGroup>
     </Form>

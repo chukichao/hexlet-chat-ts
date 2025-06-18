@@ -1,4 +1,4 @@
-import type { RootState } from '../';
+import type { RootState } from "../";
 
 // auth
 export const getToken = (state: RootState) => state.auth.token;

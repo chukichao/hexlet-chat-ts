@@ -1,10 +1,10 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import MessagesService from '../../../API/MessagesService.js';
-import normalizeData from '../../../utils/normalizeData.js';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import MessagesService from "../../../API/MessagesService.js";
+import normalizeData from "../../../utils/normalizeData.js";
 
-import type { IAddMessage, IMessage } from '../../../types/message.js';
+import type { IAddMessage, IMessage } from "../../../types/message.js";
 
-import type { INormalizeState } from '../../../types/normalizeState.js';
+import type { INormalizeState } from "../../../types/normalizeState.js";
 
 const initialState: INormalizeState<IMessage> = {
   entities: {},
@@ -12,7 +12,7 @@ const initialState: INormalizeState<IMessage> = {
 };
 
 export const getMessages = createAsyncThunk(
-  'messages/getMessages',
+  "messages/getMessages",
   async (token: string) => {
     try {
       const response = await MessagesService.getMessages(token);
@@ -25,7 +25,7 @@ export const getMessages = createAsyncThunk(
 );
 
 export const addMessage = createAsyncThunk(
-  'messages/addMessage',
+  "messages/addMessage",
   async (data: IAddMessage) => {
     try {
       const response = await MessagesService.addMessage(data);
@@ -38,7 +38,7 @@ export const addMessage = createAsyncThunk(
 );
 
 const messagesSlice = createSlice({
-  name: 'messages',
+  name: "messages",
   initialState,
   reducers: {},
   extraReducers: (builder) => {

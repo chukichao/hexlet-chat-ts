@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { addChannel, removeChannel } from '../../asyncActions';
+import { createSlice } from "@reduxjs/toolkit";
+import { addChannel, removeChannel } from "../../asyncActions";
 
-const defaultChannelId = '1';
+const defaultChannelId = "1";
 
 type Modal = {
   isOpened: boolean;
@@ -26,7 +26,7 @@ const initialState: IUIState = {
 };
 
 const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
     setCurrentChannel(state, action) {

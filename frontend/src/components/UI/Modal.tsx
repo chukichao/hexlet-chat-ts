@@ -1,10 +1,10 @@
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
-import { getModal } from '../../store/selectors';
-import { uiActions } from '../../store/actions';
+import { getModal } from "../../store/selectors";
+import { uiActions } from "../../store/actions";
 
-import { useAppDispatch } from '../../hooks/useAppDispatch.js';
-import { useAppSelector } from '../../hooks/useAppSelector.js';
+import { useAppDispatch } from "../../hooks/useAppDispatch.js";
+import { useAppSelector } from "../../hooks/useAppSelector.js";
 
 interface ModalUIProps {
   title: string;

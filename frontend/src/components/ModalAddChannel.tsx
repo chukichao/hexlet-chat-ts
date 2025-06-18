@@ -1,36 +1,36 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
-import { useTranslation } from 'react-i18next';
-import filter from 'leo-profanity';
+import { useTranslation } from "react-i18next";
+import filter from "leo-profanity";
 
-import * as yup from 'yup';
-import { setLocale } from 'yup';
+import * as yup from "yup";
+import { setLocale } from "yup";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-import { Formik, Form as FormFormik, Field } from 'formik';
-import type { FormikErrors } from 'formik';
+import { Formik, Form as FormFormik, Field } from "formik";
+import type { FormikErrors } from "formik";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
-import { getChannels, getToken } from '../store/selectors';
+import { getChannels, getToken } from "../store/selectors";
 
-import { uiActions } from '../store/actions';
-import { addChannel } from '../store/asyncActions';
+import { uiActions } from "../store/actions";
+import { addChannel } from "../store/asyncActions";
 
-import { useAppDispatch } from '../hooks/useAppDispatch.js';
-import { useAppSelector } from '../hooks/useAppSelector.js';
+import { useAppDispatch } from "../hooks/useAppDispatch.js";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
 const ModalAddChannel: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const getNotificationStatusOperation = () =>
-    toast.success(t('channels.created'));
+    toast.success(t("channels.created"));
 
   const [disabledButton, setDisabledButton] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -47,12 +47,12 @@ const ModalAddChannel: React.FC = () => {
 
   setLocale({
     string: {
-      min: t('modals.min'),
-      max: t('modals.max'),
+      min: t("modals.min"),
+      max: t("modals.max"),
     },
     mixed: {
-      notOneOf: t('modals.uniq'),
-      required: t('modals.required'),
+      notOneOf: t("modals.uniq"),
+      required: t("modals.required"),
     },
   });
 
@@ -96,7 +96,7 @@ const ModalAddChannel: React.FC = () => {
 
   return (
     <Formik
-      initialValues={{ name: '' }}
+      initialValues={{ name: "" }}
       validationSchema={validationSchema}
       onSubmit={() => {}}
     >
@@ -107,18 +107,18 @@ const ModalAddChannel: React.FC = () => {
               name="name"
               id="name"
               className={`form-control mb-2 ${
-                errorMessage ? 'is-invalid' : ''
+                errorMessage ? "is-invalid" : ""
               }`}
               onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
-                if (event.key === 'Enter') {
+                if (event.key === "Enter") {
                   return handleSubmit(errors, values);
                 }
               }}
               innerRef={inputRef}
             />
             <label className="visually-hidden" htmlFor="name">
-              {' '}
-              {t('modals.channelName')}
+              {" "}
+              {t("modals.channelName")}
             </label>
             <Form.Control.Feedback type="invalid">
               {errorMessage}
@@ -130,10 +130,10 @@ const ModalAddChannel: React.FC = () => {
                 onClick={handleCloseModal}
                 className="me-2"
               >
-                {t('modals.cancel')}
+                {t("modals.cancel")}
               </Button>
               <Button type="submit" variant="primary" disabled={disabledButton}>
-                {t('modals.submit')}
+                {t("modals.submit")}
               </Button>
             </div>
           </div>

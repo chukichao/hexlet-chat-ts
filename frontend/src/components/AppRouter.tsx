@@ -1,20 +1,20 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import { getToken } from '../store/selectors';
+import { getToken } from "../store/selectors";
 
-import MainPage from '../pages/MainPage.jsx';
+import MainPage from "../pages/MainPage.jsx";
 
-import AuthPage from '../pages/AuthPage.jsx';
-import LoginPage from '../pages/LoginPage.jsx';
-import SignupPage from '../pages/SignupPage.jsx';
+import AuthPage from "../pages/AuthPage.jsx";
+import LoginPage from "../pages/LoginPage.jsx";
+import SignupPage from "../pages/SignupPage.jsx";
 
-import NotFoundPage from '../pages/NotFoundPage.jsx';
+import NotFoundPage from "../pages/NotFoundPage.jsx";
 
-import { useAppSelector } from '../hooks/useAppSelector.js';
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
-import Chat from './Chat.jsx';
+import Chat from "./Chat.jsx";
 
-import routes from '../routes';
+import routes from "../routes";
 
 const AppRouter: React.FC = () => {
   const token = useAppSelector(getToken);

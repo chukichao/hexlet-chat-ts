@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface IAuthState {
   username: string | null;
@@ -12,7 +12,7 @@ const initialState: IAuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     setAuth(state, action: PayloadAction<IAuthState>) {

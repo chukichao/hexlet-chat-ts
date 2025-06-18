@@ -3,11 +3,9 @@ import {
   addChannel,
   removeChannel,
   editChannel,
-} from '../slices/channels/channelsSlice.js';
+} from "../slices/channels/channelsSlice.js";
 
-import { getMessages, addMessage } from '../slices/messages/messagesSlice.js';
+import { getMessages, addMessage } from "../slices/messages/messagesSlice.js";
 
-export {
-  getChannels, addChannel, removeChannel, editChannel,
-};
+export { getChannels, addChannel, removeChannel, editChannel };
 export { getMessages, addMessage };

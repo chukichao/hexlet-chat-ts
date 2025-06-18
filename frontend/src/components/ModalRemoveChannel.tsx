@@ -1,25 +1,25 @@
-import { useState } from 'react';
+import { useState } from "react";
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 
-import { getModal, getToken } from '../store/selectors';
+import { getModal, getToken } from "../store/selectors";
 
-import { uiActions } from '../store/actions';
-import { removeChannel } from '../store/asyncActions';
+import { uiActions } from "../store/actions";
+import { removeChannel } from "../store/asyncActions";
 
-import { useAppDispatch } from '../hooks/useAppDispatch.js';
-import { useAppSelector } from '../hooks/useAppSelector.js';
+import { useAppDispatch } from "../hooks/useAppDispatch.js";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
 const ModalRemoveChannel: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const getNotificationStatusOperation = () =>
-    toast.success(t('channels.removed'));
+    toast.success(t("channels.removed"));
 
   const [disabledButton, setDisabledButton] = useState(false);
 
@@ -43,17 +43,17 @@ const ModalRemoveChannel: React.FC = () => {
 
   return (
     <>
-      <p className="lead">{t('modals.confirmation')}</p>
+      <p className="lead">{t("modals.confirmation")}</p>
       <div className="d-flex justify-content-end">
         <Button variant="secondary" onClick={handleCloseModal} className="me-2">
-          {t('modals.cancel')}
+          {t("modals.cancel")}
         </Button>
         <Button
           variant="danger"
           onClick={handleSubmit}
           disabled={disabledButton}
         >
-          {t('modals.confirm')}
+          {t("modals.confirm")}
         </Button>
       </div>
     </>

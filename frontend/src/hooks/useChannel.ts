@@ -1,5 +1,5 @@
-import { getChannels, getCurrentChannelId } from '../store/selectors';
-import { useAppSelector } from './useAppSelector';
+import { getChannels, getCurrentChannelId } from "../store/selectors";
+import { useAppSelector } from "./useAppSelector";
 
 const useChannel = () => {
   const currentChannelId = useAppSelector(getCurrentChannelId);

@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-import { getMessages } from '../store/selectors';
+import { getMessages } from "../store/selectors";
 
-import useChannel from '../hooks/useChannel.js';
-import { useAppSelector } from '../hooks/useAppSelector.js';
+import useChannel from "../hooks/useChannel.js";
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
-import FormAddMessage from './FormAddMessage.jsx';
+import FormAddMessage from "./FormAddMessage.jsx";
 
 const MessagesList: React.FC = () => {
   const { t } = useTranslation();
@@ -25,14 +25,14 @@ const MessagesList: React.FC = () => {
             <b>{`# ${currentChannel?.name}`}</b>
           </p>
           <span className="text-muted">
-            {t('chat.messageCount', { count: messagesChannel.length })}
+            {t("chat.messageCount", { count: messagesChannel.length })}
           </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {messagesChannel.map((message) => (
             <div className="text-break mb-2" key={message.id}>
               <b>{message.username}</b>
-              {': '}
+              {": "}
               {message.body}
             </div>
           ))}

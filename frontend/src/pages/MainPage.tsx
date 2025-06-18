@@ -1,20 +1,20 @@
-import { Outlet } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-import { ToastContainer, Bounce } from 'react-toastify';
+import { ToastContainer, Bounce } from "react-toastify";
 
-import Header from '../components/Header.jsx';
-import ModalUI from '../components/UI/Modal.jsx';
+import Header from "../components/Header.jsx";
+import ModalUI from "../components/UI/Modal.jsx";
 
-import ModalAddChannel from '../components/ModalAddChannel.jsx';
-import ModalRemoveChannel from '../components/ModalRemoveChannel.jsx';
-import ModalRenameChannel from '../components/ModalRenameChannel.jsx';
+import ModalAddChannel from "../components/ModalAddChannel.jsx";
+import ModalRemoveChannel from "../components/ModalRemoveChannel.jsx";
+import ModalRenameChannel from "../components/ModalRenameChannel.jsx";
 
-import { getModal } from '../store/selectors';
+import { getModal } from "../store/selectors";
 
-import { useAppSelector } from '../hooks/useAppSelector.js';
+import { useAppSelector } from "../hooks/useAppSelector.js";
 
-import type { JSX } from 'react';
+import type { JSX } from "react";
 
 const MainPage: React.FC = () => {
   const { t } = useTranslation();
@@ -26,9 +26,9 @@ const MainPage: React.FC = () => {
   }
 
   const titleModal: ITitleModal = {
-    addChannel: t('modals.add'),
-    removeChannel: t('modals.remove'),
-    renameChannel: t('modals.rename'),
+    addChannel: t("modals.add"),
+    removeChannel: t("modals.remove"),
+    renameChannel: t("modals.rename"),
   };
 
   interface IBodyModal {
